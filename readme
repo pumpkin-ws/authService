@@ -6,7 +6,7 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
                  role will not change role database.
     -removeRole: remove a role. The users assigned the role will lose the role.
     -assignUserRole: assign a role to a user, will fail if role or user does not exist.
-    -getUserToken: Get an AES encrypted string if the username and password are correct, the encrypted contains info
+    -getUserToken: get an AES encrypted string if the username and password are correct, the encrypted contains info
                    of the system time when the token is generated
     -invalidateToken: Remove token
     -checkRole: check if a user token has a certain role, encrypted token will be decrypted into username and time.
@@ -39,10 +39,11 @@ In consideration of data structures:
         role mapping to a list of usernames can be a good choice, which we can use a hashmap with role as the key and
         list of users as the value.
 
-        -The token-to-user relation is a one-to-one mapping. Each user can only have one token. Usernames are used to
-         query tokens, and vice versa. After some research, cannot find a standard container that can achieve
-         this mapping relation. So two hashmaps (many-to-one mapping) are used to emulate the one-to-one relation. When
-         updating username or token, both hashmaps will need to update.
+        -The token-to-user relation is a one-to-one mapping. Each user can only have one token. If a user is
+         assigned multiple token, only the newest one should be used. Usernames are used to query tokens, and vice
+         versa. After some research, cannot find a standard container that can achieve this mapping relation.
+         So two hashmaps (many-to-one mapping) are used to emulate the one-to-one relation. When updating username
+         or token, both hashmaps will need to update.
 
         -During removal of role and tokens, it can be disastrous having to iterate through each user, if there are
          billions of users. Therefore, roles and tokens must not be assigned naively as a property of an user object.
