@@ -14,12 +14,14 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
 
 Class Designs:
     -UserGroup
+        Contains maps to store username-passwords and username-token. Manage users, passwords, tokens.
+        Very user crenditials
 
     -RoleGroup
-        Contains a hashmap to store
+        Contains a map to store the role-usernames mapping. Query usernames belonging to a specific role.
 
     -TokenGroup
-        The user name and
+        Contain a map to store token-username. Generate user token, invalidate user tokens, and verify tokens.
 
     -StringEncryption
         Uses Advance Encryption Standard (AES) to encrypt and decrypt strings. Provide methods to generate secret code,
