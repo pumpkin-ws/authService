@@ -1,0 +1,54 @@
+API interfaces:
+The user interfaces are integrated in the class AuthInterface. The functionalities provided are as follows:
+    -createUser: create and store username and password in memory, password is encrypted by AES
+    -removeUser: remove user traces from database, including username, password, role, and token
+    -createRole: function to create new role and store in memory. Each role is unique, multiple creation of the same
+                 role will not change role database.
+    -removeRole: remove a role. The users assigned the role will lose the role.
+    -assignUserRole: assign a role to a user
+    -getUserToken: Request to get user token, with username and password passed in as POST request
+    -invalidateToken: Request to invalidate token, with token passed in as POST request
+    -
+
+
+Class Designs:
+    -RoleGroup
+        Contains a hashmap to store
+
+    -TokenGroup
+        The user name and
+
+
+In consideration of data structures:
+    The four primary data types stored are users, passwords, roles, and authentication tokens. As the amount of user
+    grows, searching by iteration (at least O(n) complexity, depending how iterations are performed) will become a very
+    time consuming process. Hashmaps and hashsets with close to O(1) search complexity are ideal for handling large,
+    unique datasets. Some thoughts on the relations of the primary data types help with constructing meaningful mapping
+    relations, as follows:
+        -The username and the password are one to one mapping, and only the username can be used to query password,
+         not vice versa. So a hashmap with username as key and password as value. This is the case of a one way query.
+
+        -The role-to-user relation is a one-to-many mapping. One role can correspond to many usernames. So a key of
+        role mapping to a list of usernames can be a good choice, which we can use a hashmap with role as the key and
+        list of users as the value.
+
+        -The token-to-user relation is a one-to-one mapping. Each user can only have one token. Usernames are used to
+         query tokens, and vice versa. After some research, cannot find a standard container that can achieve
+         this mapping relation. So two hashmaps (many-to-one mapping) are used to emulate the one-to-one relation. When
+         updating username or token, both hashmaps will need to update.
+
+        -During removal of role and tokens, it can be disastrous having to iterate through each user, if there are
+         billions of users. Therefore, roles and tokens must not be assigned naively as a property of an user object.
+
+Spring boot controllers:
+The spring boot program can be started from the Application class. (Need to start server to host the request services?)
+    -createUser: Request to create user, with username and password passed in as POST request
+    -removeUser: Request to remove user, with username passed in as POST request
+    -createRole: Request to create role, with name of role passed in a POST request
+    -removeRole: Request to remove role, with name of role passed in a POST request
+    -assignUserRole: Request to assign role to user, with username and role passed in as POST request
+    -getUserToken: Request to get user token, with username and password passed in as POST request
+    -invalidateToken: Request to invalidate token, with token passed in as POST request
+    -checkRole: Request to check if a user token has a certain role, with user token and role passed in as POST request
+    -getAllRoles: Request to get all roles given a user token, with the user token passed in as POST request
+
