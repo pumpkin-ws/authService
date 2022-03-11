@@ -58,20 +58,10 @@ public class UserGroup {
             try {
                 String encrypted_pass = StringEncryption.encrypt("AES/CBC/PKCS5Padding", password, m_secret_key, m_iv);
                 m_user_password.put(user_name, encrypted_pass);
-            } catch (NoSuchPaddingException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (InvalidAlgorithmParameterException e) {
-                e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
+            } catch (NoSuchPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException e) {
                 e.printStackTrace();
             }
-            System.out.println("Number of users: " + m_user_password.size());
+//            System.out.println("Number of users: " + m_user_password.size());
             return true;
         }
     }
@@ -84,8 +74,8 @@ public class UserGroup {
     public boolean removeUser(String username) {
         if (m_user_password.containsKey(username)) {
             m_user_password.remove(username);
-            System.out.println("Number of users: " + m_user_password.size());
-            if (m_user_token.containsKey(username) == true) {
+//            System.out.println("Number of users: " + m_user_password.size());
+            if (m_user_token.containsKey(username)) {
                 m_user_token.remove(username);
             }
             return true;
@@ -118,8 +108,8 @@ public class UserGroup {
         } else {
             try {
                 String encrypted_pass = StringEncryption.encrypt("AES/CBC/PKCS5Padding", password, m_secret_key, m_iv);
-                System.out.println("The stored password: " + m_user_password.get(username));
-                System.out.println("Passed in password: " + encrypted_pass);
+//                System.out.println("The stored password: " + m_user_password.get(username));
+//                System.out.println("Passed in password: " + encrypted_pass);
                 if (encrypted_pass.equals(m_user_password.get(username))) {
                     System.out.println("Same");
                     return true;
@@ -127,17 +117,7 @@ public class UserGroup {
                     System.out.println("Different");
                     return false;
                 }
-            } catch (NoSuchPaddingException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (InvalidAlgorithmParameterException e) {
-                e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
+            } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
                 e.printStackTrace();
             }
         }

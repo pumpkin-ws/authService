@@ -21,9 +21,9 @@ public class RoleGroup {
         } else {
             m_role.add(role);
             m_role_user.put(role, new HashSet<String>());
-            System.out.println("Number of role: " + m_role.size());
-            System.out.println("Number of role-user: " + m_role_user.size());
-            System.out.println("---------------------------------------------");
+//            System.out.println("Number of role: " + m_role.size());
+//            System.out.println("Number of role-user: " + m_role_user.size());
+//            System.out.println("---------------------------------------------");
             return true;
         }
     }
@@ -37,9 +37,9 @@ public class RoleGroup {
             // if a role is deleted, then roles in the user-role pair should be removed as well
             m_role_user.remove(role);
 
-            System.out.println("Number of role: " + m_role.size());
-            System.out.println("Number of role-user: " + m_role_user.size());
-            System.out.println("---------------------------------------------");
+//            System.out.println("Number of role: " + m_role.size());
+//            System.out.println("Number of role-user: " + m_role_user.size());
+//            System.out.println("---------------------------------------------");
             return true;
         }
     }
@@ -55,7 +55,7 @@ public class RoleGroup {
         if (m_role.contains(role)) {
             // safe to not check for user as hashset can only one of the same element
             m_role_user.get(role).add(user);
-            System.out.println(role + ":" + m_role_user.get(role));
+//            System.out.println(role + ":" + m_role_user.get(role));
             return true;
         } else {
             System.out.println("Role is not created yet. Create role first then user can be assigned.");

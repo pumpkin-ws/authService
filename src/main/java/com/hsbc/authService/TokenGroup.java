@@ -53,16 +53,16 @@ public class TokenGroup {
             e.printStackTrace();
         }
         m_token_user.put(token, username);
-        System.out.println(m_token_user);
+//        System.out.println(m_token_user);
         return token;
     }
 
     public String removeToken(String token) {
         if (m_token_user.containsKey(token)) {
             String username = m_token_user.get(token);
-            System.out.println("Removing old token from token: " + token);
+//            System.out.println("Removing old token from token: " + token);
             m_token_user.remove(token);
-            System.out.println(m_token_user);
+//            System.out.println(m_token_user);
             return username;
         } else {
             return "";
@@ -77,7 +77,7 @@ public class TokenGroup {
     public String isTokenValid(String token) {
         try {
             String decrypted_token = StringEncryption.decrypt("AES/CBC/PKCS5Padding", token, m_secret_key, m_iv);
-            System.out.println("The decrypted token is: " + decrypted_token);
+//            System.out.println("The decrypted token is: " + decrypted_token);
             String elapsed_time_s = decrypted_token.substring(decrypted_token.indexOf(TOKEN_SEPARATOR) + 3);
             Long elapsed_time_l = Long.parseLong(elapsed_time_s);
             Long cur_time_l = System.currentTimeMillis() / 1000l;
@@ -89,17 +89,7 @@ public class TokenGroup {
             } else { // token valid, check if user is in role
                 return "";
             }
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
         return "exception";
