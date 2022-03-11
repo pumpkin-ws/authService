@@ -64,8 +64,8 @@ In consideration of data structures:
          So two hashmaps (many-to-one mapping) are used to emulate the one-to-one relation. When updating username
          or token, both hashmaps will need to update.
 
-        -During removal of role and tokens, it can be disastrous having to iterate through each user, if there are
-         billions of users. Therefore, roles and tokens must not be assigned naively as a property of an user object.
+        -During removal of role and tokens, it can be slow having to iterate through each user, if there are
+         billions of users. Therefore, roles and tokens should not be assigned as a property of an user object.
 
 
 
