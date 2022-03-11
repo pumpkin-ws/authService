@@ -3,11 +3,7 @@ import com.hsbc.authService.AuthInterface;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+
 public class AuthTest {
     /**
      *  Check if user addition and deletion can be properly handled
@@ -83,7 +79,7 @@ public class AuthTest {
     }
 
     /**
-     *
+     * Check if user roles can be queried by user tokens
      */
     @Test
     void checkRole() {
@@ -106,7 +102,7 @@ public class AuthTest {
     }
 
     /**
-     *
+     * Check given a user token, if the algorithm is able to return all roles belonging to the user
      */
     @Test
     void getAllRole() {
@@ -130,7 +126,7 @@ public class AuthTest {
     }
 
     /**
-     * Check if token expiration is detected. A false return with
+     * Check if token expiration is detected. checkRole and getAllRoles will return false if the time of token expires
      */
     @Test
     void tokenExpiration() {

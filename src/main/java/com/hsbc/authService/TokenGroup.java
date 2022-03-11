@@ -113,6 +113,11 @@ public class TokenGroup {
         return "exception";
     }
 
+    /**
+     * Given a token string, check if token exists in token class
+     * @param token
+     * @return
+     */
     public boolean tokenExists(String token) {
         return m_token_user.containsKey(token);
     }

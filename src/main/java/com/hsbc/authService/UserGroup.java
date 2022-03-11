@@ -1,5 +1,4 @@
 package com.hsbc.authService;
-import com.hsbc.authService.AuthInterface;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;

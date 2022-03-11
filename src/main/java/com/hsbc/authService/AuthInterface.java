@@ -1,10 +1,6 @@
 package com.hsbc.authService;
-import com.hsbc.authService.UserGroup;
-import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
-import java.security.NoSuchAlgorithmException;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service

@@ -2,15 +2,10 @@ package com.hsbc.authService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -97,11 +92,11 @@ public class Controller {
     public String getUserToken(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
-        String authen_result = authInterface.authenticate(username, password);
-        if (authen_result.contains("ERROR")){
+        String auth_result = authInterface.authenticate(username, password);
+        if (auth_result.contains("ERROR")){
             System.out.println("FAILED TO GENERATE USER TOKEN");
         }
-        return authen_result;
+        return auth_result;
     }
 
     /**
