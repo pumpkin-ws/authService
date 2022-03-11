@@ -34,7 +34,7 @@ public class AuthInterface {
     };
 
     /**
-     * Function to remove user traces from database, including username, password, role, and token
+     * remove all user traces from database, including username, password, role, and token
      * @param username
      * @return
      */
