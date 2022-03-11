@@ -19,6 +19,8 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
     -checkRole: check if a user token has a certain role, encrypted token will be decrypted into username and time.
     -getAllRole: get all roles for the passed in user token
 
+
+
 Class Designs:
     -UserGroup
         Contains maps to store username-passwords and username-token. Manage users, passwords, tokens.
@@ -33,6 +35,7 @@ Class Designs:
     -StringEncryption
         Uses Advance Encryption Standard (AES) to encrypt and decrypt strings. Provide methods to generate secret code,
         encrypt string, and decrypt string. The passwords and the user tokens are encrypted by this class.
+
 
 
 In consideration of data structures:
@@ -58,6 +61,8 @@ In consideration of data structures:
 
         -During removal of role and tokens, it can be disastrous having to iterate through each user, if there are
          billions of users. Therefore, roles and tokens must not be assigned naively as a property of an user object.
+
+
 
 Spring boot controllers:
 The spring boot program can be started from the Application class. (Need to start server to host the request services?)
