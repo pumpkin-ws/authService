@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class StringEncryption {
+
     public static SecretKey generateKey(int n) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(n);

@@ -1,5 +1,6 @@
 API interfaces:
-The user interfaces are integrated in the class AuthInterface. The functionalities provided are as follows:
+    The user interfaces are integrated in the class AuthInterface. The functionalities provided are as follows:
+
     -createUser: create and store username and password in memory, password is encrypted by AES
 
     -removeUser: remove user traces from database, including username, password, role, and token
@@ -17,6 +18,7 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
     -invalidateToken: Remove token
 
     -checkRole: check if a user token has a certain role, encrypted token will be decrypted into username and time.
+
     -getAllRole: get all roles for the passed in user token
 
 
@@ -24,17 +26,20 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
 Class Designs:
     -UserGroup
         Contains maps to store username-passwords and username-token. Manage users, passwords, tokens.
-        Very user crenditials
+        Verify user credentials
 
     -RoleGroup
         Contains a map to store the role-usernames mapping. Query usernames belonging to a specific role.
 
     -TokenGroup
-        Contain a map to store token-username. Generate user token, invalidate user tokens, and verify tokens.
+        Contains a map to store token-username. Generate user token, invalidate user tokens, and verify tokens.
 
     -StringEncryption
         Uses Advance Encryption Standard (AES) to encrypt and decrypt strings. Provide methods to generate secret code,
         encrypt string, and decrypt string. The passwords and the user tokens are encrypted by this class.
+
+    -AuthTest
+        Contains tests that validates functionalities of the API
 
 
 
@@ -65,7 +70,7 @@ In consideration of data structures:
 
 
 Spring boot controllers:
-The spring boot program can be started from the Application class. (Need to start server to host the request services?)
+    The spring boot program can be started from the Application class. (Need to initiate app listener)
 
     -createUser: Request to create user, with username and password passed in as POST request
 

@@ -81,7 +81,7 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * Verify username and passowrd, if valid, return token associated with the current time and user
      * @param username
      * @param password
      * @return
@@ -107,7 +107,7 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * remove a token
      * @param token
      */
     public static void invalidate(String token) {
@@ -118,10 +118,10 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * Extract user info from valid tokens (not expired), check if user in role
      * @param token
      * @param role
-     * @return
+     * @return true if user token belongs to role
      */
     public static boolean checkRole(String token, String role) {
         if (tokens.tokenExists(token) == false) {
@@ -145,9 +145,10 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * extract user info from a valid token, iterate through all roles to check if the username belongs to role, store
+     * role key in a list
      * @param token
-     * @return
+     * @return list containing all roles belonging to the user, extracted from a valid token
      */
     public static ArrayList<String> getAllRoles(String token) {
         ArrayList<String> all_roles = new ArrayList<>();

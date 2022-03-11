@@ -44,9 +44,17 @@ public class RoleGroup {
         }
     }
 
+    /**
+     * Find the hashset value associated with the role key, add username to the hashset. Fine to add same username
+     * multiple time as hashset will only store one element of the same thing
+     * @param user
+     * @param role
+     * @return
+     */
     public boolean assignRole2User(String user, String role) {
         if (m_role.contains(role) == true) {
-            m_role_user.get(role).add(user); // add user to the role TODO: need to check get and add
+            // safe to not check for user as hashset can only one of the same element
+            m_role_user.get(role).add(user);
             System.out.println(role + ":" + m_role_user.get(role));
             return true;
         } else {
@@ -74,6 +82,13 @@ public class RoleGroup {
     public boolean checkRole(String username, String role) {
         return m_role_user.get(role).contains(username);
     }
+
+    /**
+     * Iterate through all roles and check if each role contain the username. If does, store the key name in the return
+     * list.
+     * @param username
+     * @return
+     */
     public ArrayList<String> getAllRoles(String username) {
         ArrayList<String> all_roles = new ArrayList<>();
         Iterator<HashMap.Entry<String, HashSet<String>>> it = m_role_user.entrySet().iterator();
@@ -85,6 +100,11 @@ public class RoleGroup {
         }
         return all_roles;
     }
+
+    /**
+     * Iterate through all roles and remove username from associated username list if in the list
+     * @param username
+     */
     public void removeUserFromAllRoles(String username) {
         Iterator<HashMap.Entry<String, HashSet<String>>> it = m_role_user.entrySet().iterator();
         while(it.hasNext()) {

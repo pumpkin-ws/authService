@@ -27,7 +27,7 @@ public class TokenGroup {
     }
 
     /**
-     *
+     * Generate an AES encrypted string token based on the username and the current time
      * @param username
      * @return
      */
@@ -79,8 +79,10 @@ public class TokenGroup {
         }
     }
     /**
+     * Decrypt the token, extract time, and compare to current system time to see if expired. If expired, remove token
      * @param token
-     * @return token is invalid if the "" is returned, token is invalid if the username is returned
+     * @return token is invalid if the "" is returned, token is invalid if the username is returned, needed for removal
+     * in UserGroup's token map
      */
     public String isTokenValid(String token) {
         try {

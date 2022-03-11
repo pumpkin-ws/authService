@@ -30,6 +30,12 @@ public class UserGroup {
         return m_user_password.size();
     }
 
+    /**
+     * Create users with given passwords. Passwords will be encrypted with AES. Usernames are unique and case sensitive.
+     * @param user_name
+     * @param password
+     * @return
+     */
     public boolean createUser(String user_name, String password) {
         // generate the encryption tokens if nonexistent
         if (m_is_key_set == false) {
@@ -70,6 +76,11 @@ public class UserGroup {
         }
     }
 
+    /**
+     * Remove username and password if username exists
+     * @param username
+     * @return true if username removed successfully
+     */
     public boolean removeUser(String username) {
         if (m_user_password.containsKey(username)) {
             m_user_password.remove(username);
@@ -84,10 +95,22 @@ public class UserGroup {
         }
     }
 
+    /**
+     * Check if username exists
+     * @param username
+     * @return
+     */
     public boolean userExists(String username) {
         return m_user_password.containsKey(username);
     }
 
+    /**
+     * check if usernames and passwords are valid, the password will be encrypted and checked against the encrypted
+     * password stored
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean verifyPassword(String username, String password) {
         if(m_user_password.containsKey(username) == false) {
             System.out.println("ERROR: USERNAME NOT AVAILABLE");
@@ -120,6 +143,14 @@ public class UserGroup {
         }
         return false;
     }
+
+    /**
+     * Add token to user, one user should have one token, and one token should only be used by one user
+     * Couple with the reverse map from TokenGroup, creates a one-to-one mapping relation, mainly needed
+     * for fast searching, but will use more map space as two maps store the same information
+     * @param username
+     * @param token
+     */
     public void createToken(String username, String token) {
         if (m_user_token.containsKey(username)) {
             m_user_token.remove(username);
@@ -129,6 +160,7 @@ public class UserGroup {
         }
         System.out.println(m_user_token);
     }
+
     public String removeToken(String username) {
         if (m_user_token.containsKey(username)) {
             String old_token = m_user_token.get(username);
@@ -139,6 +171,7 @@ public class UserGroup {
             return "";
         }
     }
+
     public String getToken(String username) {
         if (m_user_token.containsKey(username)) {
             return m_user_token.get(username);
