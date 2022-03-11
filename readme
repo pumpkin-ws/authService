@@ -39,7 +39,7 @@ Class Designs:
         encrypt string, and decrypt string. The passwords and the user tokens are encrypted by this class.
 
     -AuthTest
-        Contains tests that validates functionalities of the API
+        Contains tests that validate functionalities of the API
 
 
 
