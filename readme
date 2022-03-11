@@ -5,18 +5,25 @@ The user interfaces are integrated in the class AuthInterface. The functionaliti
     -createRole: function to create new role and store in memory. Each role is unique, multiple creation of the same
                  role will not change role database.
     -removeRole: remove a role. The users assigned the role will lose the role.
-    -assignUserRole: assign a role to a user
-    -getUserToken: Request to get user token, with username and password passed in as POST request
-    -invalidateToken: Request to invalidate token, with token passed in as POST request
-    -
-
+    -assignUserRole: assign a role to a user, will fail if role or user does not exist.
+    -getUserToken: Get an AES encrypted string if the username and password are correct, the encrypted contains info
+                   of the system time when the token is generated
+    -invalidateToken: Remove token
+    -checkRole: check if a user token has a certain role, encrypted token will be decrypted into username and time.
+    -getAllRole: get all roles for the passed in user token
 
 Class Designs:
+    -UserGroup
+
     -RoleGroup
         Contains a hashmap to store
 
     -TokenGroup
         The user name and
+
+    -StringEncryption
+        Uses Advance Encryption Standard (AES) to encrypt and decrypt strings. Provide methods to generate secret code,
+        encrypt string, and decrypt string. The passwords and the user tokens are encrypted by this class.
 
 
 In consideration of data structures:

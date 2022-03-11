@@ -143,6 +143,7 @@ public class AuthTest {
         String token2 = AuthInterface.authenticate("Bob", "234");
 
         try {
+            // Wait too looooong, time was set shorter for quick test :)
             Thread.sleep(2*60*60*1000 + 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
