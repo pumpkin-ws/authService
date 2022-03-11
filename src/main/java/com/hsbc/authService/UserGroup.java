@@ -38,7 +38,7 @@ public class UserGroup {
      */
     public boolean createUser(String user_name, String password) {
         // generate the encryption tokens if nonexistent
-        if (m_is_key_set == false) {
+        if (!m_is_key_set) {
             try {
                 m_secret_key = StringEncryption.generateKey(128);
                 m_is_key_set = true;
@@ -46,7 +46,7 @@ public class UserGroup {
                 e.printStackTrace();
             }
         }
-        if (m_is_iv_set == false) {
+        if (!m_is_iv_set) {
             m_iv = StringEncryption.generateIv();
             m_is_iv_set = true;
         }
@@ -112,7 +112,7 @@ public class UserGroup {
      * @return
      */
     public boolean verifyPassword(String username, String password) {
-        if(m_user_password.containsKey(username) == false) {
+        if(!m_user_password.containsKey(username)) {
             System.out.println("ERROR: USERNAME NOT AVAILABLE");
             return false;
         } else {

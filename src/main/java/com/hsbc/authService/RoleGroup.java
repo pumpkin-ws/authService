@@ -6,8 +6,8 @@ import java.util.*;
  * Role group contains the data structure that holds all the roles and users contained in each role
  */
 public class RoleGroup {
-    private HashSet<String> m_role;
-    private HashMap<String, HashSet<String>> m_role_user; // a role can have many users
+    private final HashSet<String> m_role;
+    private final HashMap<String, HashSet<String>> m_role_user; // a role can have many users
 
     RoleGroup() {
         m_role = new HashSet<>();
@@ -15,7 +15,7 @@ public class RoleGroup {
     }
 
     public boolean createRole(String role) {
-        if (m_role.contains(role) == true) {
+        if (m_role.contains(role)) {
             System.out.println("ERROR: ROLE ALREADY EXISTS");
             return false;
         } else {
@@ -29,7 +29,7 @@ public class RoleGroup {
     }
 
     public boolean removeRole(String role) {
-        if (m_role.contains(role) == false) {
+        if (!m_role.contains(role)) {
             System.out.println("ERROR: ROLE NOT IN LIST");
             return false;
         } else {
@@ -52,7 +52,7 @@ public class RoleGroup {
      * @return
      */
     public boolean assignRole2User(String user, String role) {
-        if (m_role.contains(role) == true) {
+        if (m_role.contains(role)) {
             // safe to not check for user as hashset can only one of the same element
             m_role_user.get(role).add(user);
             System.out.println(role + ":" + m_role_user.get(role));
@@ -63,8 +63,8 @@ public class RoleGroup {
         }
     }
     public boolean removeUserRole(String user, String role) {
-        if (m_role.contains(role) == true) {
-            if (m_role_user.get(role).contains(user) == true) {
+        if (m_role.contains(role)) {
+            if (m_role_user.get(role).contains(user)) {
                 m_role_user.get(role).remove(user);
                 return true;
             } else {
@@ -94,7 +94,7 @@ public class RoleGroup {
         Iterator<HashMap.Entry<String, HashSet<String>>> it = m_role_user.entrySet().iterator();
         while(it.hasNext()) {
             HashMap.Entry<String, HashSet<String>> pair = it.next();
-            if (pair.getValue().contains(username) == true) {
+            if (pair.getValue().contains(username)) {
                 all_roles.add(pair.getKey());
             }
         }
@@ -109,7 +109,7 @@ public class RoleGroup {
         Iterator<HashMap.Entry<String, HashSet<String>>> it = m_role_user.entrySet().iterator();
         while(it.hasNext()) {
             HashMap.Entry<String, HashSet<String>> pair = it.next();
-            if (pair.getValue().contains("user") == true) {
+            if (pair.getValue().contains("user")) {
                 pair.getValue().remove(username);
             }
         }

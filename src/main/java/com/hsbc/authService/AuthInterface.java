@@ -48,9 +48,9 @@ public class AuthInterface {
     }
 
     /**
-     *
-     * @param role function to create new role and store in memory. Each role is unique, multiple creation of the same
-     *             role will not change role database.
+     * function to create new role and store in memory. Each role is unique, multiple creation of the same
+     *  role will not change role database.
+     * @param role
      * @return true if role creation is successful
      */
     public static boolean createRole(String role) {
@@ -58,7 +58,7 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * remove role from database, the removal of a role will also remove any unwanted
      * @param role
      * @return
      */
@@ -67,13 +67,14 @@ public class AuthInterface {
     }
 
     /**
-     *
+     * Assign role to user, or more properly speaking, putting user into the role container. Will handle the cases when
+     * the user was
      * @param username
      * @param role
      * @return
      */
     public static boolean assignRole2User(String username, String role) {
-        if (users.userExists(username) == false) {
+        if (!users.userExists(username)) {
             return false;
         } else {
             return roles.assignRole2User(username, role);
@@ -81,17 +82,17 @@ public class AuthInterface {
     }
 
     /**
-     * Verify username and passowrd, if valid, return token associated with the current time and user
+     * Verify username and password, if valid, return token associated with the current time and user
      * @param username
      * @param password
      * @return
      */
     public static String authenticate(String username, String password) {
-        if (users.userExists(username) == false) {
+        if (!users.userExists(username)) {
             return "ERROR: USER NOT CREATED";
         } else {
             // verify user password
-            if(users.verifyPassword(username, password) == false) {
+            if(!users.verifyPassword(username, password)) {
                 return "ERROR: INCORRECT PASSWORD";
             } else {
                 // remove token if username has a token, and store a new one
@@ -112,7 +113,7 @@ public class AuthInterface {
      */
     public static void invalidate(String token) {
         String username = tokens.removeToken(token);
-        if (username != "") {
+        if (!username.equals("")) {
             users.removeToken(username);
         }
     }
@@ -124,17 +125,17 @@ public class AuthInterface {
      * @return true if user token belongs to role
      */
     public static boolean checkRole(String token, String role) {
-        if (tokens.tokenExists(token) == false) {
+        if (!tokens.tokenExists(token)) {
             return false;
         } else {
             String username = tokens.isTokenValid(token);
-            if(username != "") {
+            if(!username.equals("")) {
                 users.removeToken(username);
                 System.out.println("ERROR: TOKEN EXPIRED, WAS REMOVED");
                 return false;
             } else {
                 username = tokens.getNameFromToken(token);
-                if (roles.roleExists(role) == false) {
+                if (!roles.roleExists(role)) {
                     return false;
                 } else {
                     return roles.checkRole(username, role);
@@ -152,11 +153,11 @@ public class AuthInterface {
      */
     public static ArrayList<String> getAllRoles(String token) {
         ArrayList<String> all_roles = new ArrayList<>();
-        if (tokens.tokenExists(token) == false) {
+        if (!tokens.tokenExists(token)) {
             return all_roles;
         } else {
             String username = tokens.isTokenValid(token);
-            if(username != "") {
+            if(!username.equals("")) {
                 users.removeToken(username);
                 System.out.println("ERROR: TOKEN EXPIRED, WAS REMOVED");
                 return all_roles;

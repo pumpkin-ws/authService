@@ -16,7 +16,7 @@ public class TokenGroup {
     private boolean m_is_iv_set;
     private static SecretKey m_secret_key;
     private static IvParameterSpec m_iv;
-    private HashMap<String, String> m_token_user;
+    private final HashMap<String, String> m_token_user;
     private static final String TOKEN_SEPARATOR = ":-:";
     private static final int TOKEN_VALID_TIME = 2 * 60 * 60;
 
@@ -32,7 +32,7 @@ public class TokenGroup {
      * @return
      */
     public String authenticate(String username) {
-        if (m_is_key_set == false) {
+        if (!m_is_key_set) {
             try {
                 m_secret_key = StringEncryption.generateKey(128);
                 m_is_key_set = true;
@@ -40,7 +40,7 @@ public class TokenGroup {
                 e.printStackTrace();
             }
         }
-        if (m_is_iv_set == false) {
+        if (!m_is_iv_set) {
             m_iv = StringEncryption.generateIv();
             m_is_iv_set = true;
         }
@@ -49,17 +49,7 @@ public class TokenGroup {
         String token = null;
         try {
             token = StringEncryption.encrypt("AES/CBC/PKCS5Padding", username + TOKEN_SEPARATOR + cur_times, m_secret_key, m_iv);
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | InvalidAlgorithmParameterException | BadPaddingException e) {
             e.printStackTrace();
         }
         m_token_user.put(token, username);
@@ -68,7 +58,7 @@ public class TokenGroup {
     }
 
     public String removeToken(String token) {
-        if (m_token_user.containsKey(token) == true) {
+        if (m_token_user.containsKey(token)) {
             String username = m_token_user.get(token);
             System.out.println("Removing old token from token: " + token);
             m_token_user.remove(token);
