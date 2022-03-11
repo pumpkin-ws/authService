@@ -84,6 +84,12 @@ public class AuthInterface {
         }
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public static String authenticate(String username, String password) {
         if (users.userExists(username) == false) {
             return "ERROR: USER NOT CREATED";
@@ -104,6 +110,10 @@ public class AuthInterface {
         }
     }
 
+    /**
+     *
+     * @param token
+     */
     public static void invalidate(String token) {
         String username = tokens.removeToken(token);
         if (username != "") {
@@ -111,6 +121,12 @@ public class AuthInterface {
         }
     }
 
+    /**
+     *
+     * @param token
+     * @param role
+     * @return
+     */
     public static boolean checkRole(String token, String role) {
         if (tokens.tokenExists(token) == false) {
             return false;
@@ -132,6 +148,11 @@ public class AuthInterface {
 
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public static ArrayList<String> getAllRoles(String token) {
         ArrayList<String> all_roles = new ArrayList<>();
         if (tokens.tokenExists(token) == false) {

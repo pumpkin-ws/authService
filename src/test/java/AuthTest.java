@@ -82,6 +82,9 @@ public class AuthTest {
         AuthInterface.invalidate(token);
     }
 
+    /**
+     *
+     */
     @Test
     void checkRole() {
         assertTrue(AuthInterface.createUser("Wilson", "123"));
@@ -102,6 +105,9 @@ public class AuthTest {
 
     }
 
+    /**
+     *
+     */
     @Test
     void getAllRole() {
         assertTrue(AuthInterface.createUser("Wilson", "123"));

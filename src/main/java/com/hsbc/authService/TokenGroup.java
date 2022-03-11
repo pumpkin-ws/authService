@@ -26,6 +26,11 @@ public class TokenGroup {
         m_token_user = new HashMap<>();
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String authenticate(String username) {
         if (m_is_key_set == false) {
             try {
